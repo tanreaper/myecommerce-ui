@@ -40,6 +40,28 @@ const Signup = () => {
             console.error('Error:', error);
           });
     }
+    else if (backend === 'go') {
+        console.log(name)
+        console.log(email)
+        var body1 = {
+            name : name,
+            email : email
+        }
+          axios({
+            method: 'POST',
+            url: 'http://localhost:8082/signup',
+            data: body1
+            
+        }).then(res => {
+            console.log(res)
+        }).catch(error => {
+            console.error('Error:', error);
+          });
+        console.log('Submit form to Go backend');
+    } else {
+        // handle form submission for default action
+        console.log('Submit form to default action');
+    }
   }
     return (
         
