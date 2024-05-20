@@ -1,0 +1,30 @@
+pipeline {
+    environment {
+        dockerimagename = "myecommerce-ui"
+        dockerImage = ""
+    }
+    agent any
+    stages {
+        stage('Checkout Source') {
+            steps {
+                git branch: 'venkat', credentialsId: 'github-credentials', url:'https://github.com/tanreaper/myecommerce-ui.git'
+            }
+        }
+        stage('Build image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    dockerImage = docker.build(dockerimagename)
+                }
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    // Run the Docker container
+                    dockerImage.withRun('-p 3000:3000')
+                }
+            }
+        }
+    }
+}
