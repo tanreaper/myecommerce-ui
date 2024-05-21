@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        dockerimagename = "myecommerce-ui"
+        dockerimagename = "tanreaper/myecommerce-ui"
         dockerImage = ""
     }
     agent any
@@ -14,7 +14,8 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    dockerImage = docker.build(dockerimagename)
+                    // dockerImage = docker.build(dockerimagename)
+                    sh 'docker build -t tanreaper/myecommerce-ui .'
                 }
             }
         }
@@ -22,7 +23,8 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    dockerImage.withRun('-p 3000:3000')
+                    // dockerImage.withRun('-p 3000:3000')
+                    sh 'docker run -p 3000:3000 tanreaper/myecommerce-ui .'
                 }
             }
         }
