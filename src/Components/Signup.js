@@ -29,13 +29,17 @@ const Signup = () => {
             name : name,
             email : email
         }
-          axios({
-            method: 'POST',
-            url: 'http://127.0.0.1:5000/signup',
-            data: body
-            
-        }).then(res => {
-            console.log(res)
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+          axios.post('http://localhost:5000/signup', body, axiosConfig)
+
+        
+        .then(res => {
+            console.log("Response Received", res);
         }).catch(error => {
             console.error('Error:', error);
           });
