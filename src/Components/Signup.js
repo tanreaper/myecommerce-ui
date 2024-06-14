@@ -62,7 +62,26 @@ const Signup = () => {
             console.error('Error:', error);
           });
         console.log('Submit form to Go backend');
-    } else {
+    } 
+    else if (backend === 'java') {
+        console.log(name)
+        console.log(email)
+        var body2 = {
+            name : name,
+            email : email
+        }
+          axios({
+            method: 'POST',
+            url: 'http://localhost:8081/signup',
+            data: body2
+            
+        }).then(res => {
+            console.log(res)
+        }).catch(error => {
+            console.error('Error:', error);
+          });
+        console.log('Submit form to Go backend');
+        }else {
         // handle form submission for default action
         console.log('Submit form to default action');
     }
@@ -86,6 +105,7 @@ const Signup = () => {
                         <option value=''>Select Backend</option>
                         <option value='python'>Python</option>
                         <option value='go'>Go</option>
+                        <option value='java'>Java</option>
                     </select>
                 </div>
                 <div className='submit-container' >
