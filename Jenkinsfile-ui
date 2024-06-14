@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the Git branch
+                git branch: 'venkat', credentialsId: 'github-credentials', url:'https://github.com/tanreaper/myecommerce-ui.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build the Docker image locally
+                    powershell 'docker build -t myecommerce-ui .'
+                }
+            }
+        }
+
+        stage('Run') {
+            steps {
+                script {
+                    // Stop and remove any existing container with the same name
+                    // sh 'docker stop myecommerce-ui || true'
+                    // sh 'docker rm myecommerce-ui || true'
+
+                    // Run the Docker container
+                    powershell 'docker run -d --network python-mysql-network -p 3000:3000 --name myecommerce-ui myecommerce-ui'
+                }
+            }
+        }
+    }
+}
+
+
